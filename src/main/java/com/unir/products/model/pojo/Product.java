@@ -21,8 +21,10 @@ import org.springframework.data.annotation.Id;
 @ToString
 public class Product {
 
-
 	@Id
+	private String id;
+
+	@Field(type = FieldType.Keyword, name = "codigocodigo")
 	private String codigo;
 
 	@Field(type = FieldType.Search_As_You_Type, name = "nombre")
