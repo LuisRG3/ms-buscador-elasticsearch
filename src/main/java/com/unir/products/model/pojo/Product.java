@@ -24,7 +24,7 @@ public class Product {
 	@Id
 	private String id;
 
-	@Field(type = FieldType.Keyword, name = "codigocodigo")
+	@Field(type = FieldType.Keyword, name = "codigo")
 	private String codigo;
 
 	@Field(type = FieldType.Search_As_You_Type, name = "nombre")
@@ -36,11 +36,11 @@ public class Product {
 	@Field(type = FieldType.Text, name = "empresaAsociada")
 	private String empresaAsociada;
 
-	@Field(type = FieldType.Search_As_You_Type, name = "descripcioncorta")
-	private String descripcioncorta;
+	@Field(type = FieldType.Search_As_You_Type, name = "descripcionCorta")
+	private String descripcionCorta;
 
-	@Field(type = FieldType.Search_As_You_Type, name = "descripcionlarga")
-	private String descripcionlarga;
+	@Field(type = FieldType.Search_As_You_Type, name = "descripcionLarga")
+	private String descripcionLarga;
 
 	@Field(type = FieldType.Text, name = "Producto")
 	private String Producto;
@@ -60,8 +60,8 @@ public class Product {
 
 
 	public void update(ProductDto productDto) {
-		this.descripcioncorta = productDto.getDescripcioncorta();
-		this.descripcionlarga = productDto.getDescripcionlarga();
+		this.descripcionCorta = productDto.getDescripcionCorta();
+		this.descripcionLarga = productDto.getDescripcionLarga();
 		this.precio = productDto.getPrecio();
 		this.cantidadDisponible = productDto.getCantidadDisponible();
 		this.Producto = productDto.getProducto();

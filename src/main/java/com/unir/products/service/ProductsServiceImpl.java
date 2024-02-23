@@ -25,8 +25,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductsServiceImpl implements ProductsService {
 
-	@Autowired
-	private ProductRepository repository;
 
 	private final DataAccessRepository repositoryEslastick;
 
@@ -74,14 +72,14 @@ public class ProductsServiceImpl implements ProductsService {
 
 			Product product = Product.builder().codigo(request.getCodigo()).nombre(request.getNombre()).categoria(request.getCategoria())
 					.empresaAsociada(request.getEmpresaAsociada())
-					.descripcioncorta(request.getDescripcionCorta()).descripcionlarga(request.getDescripcionLarga())
+					.descripcionCorta(request.getDescripcionCorta()).descripcionLarga(request.getDescripcionLarga())
 					.Producto(request.getProducto())
 					.imagen(request.getImagen()).precio(request.getPrecio()).cantidadDisponible(request.getCantidadDisponible())
 					.puntuacion(request.getPuntuacion()).build();
 
 			log.info("Producto nuevo: {}", product );
 
-			return repository.save(product);
+			return repositoryEslastick.save(product);
 		} else {
 			return null;
 		}
@@ -97,7 +95,7 @@ public class ProductsServiceImpl implements ProductsService {
 				JsonMergePatch jsonMergePatch = JsonMergePatch.fromJson(objectMapper.readTree(updateRequest));
 				JsonNode target = jsonMergePatch.apply(objectMapper.readTree(objectMapper.writeValueAsString(product)));
 				Product patched = objectMapper.treeToValue(target, Product.class);
-				repository.save(patched);
+				repositoryEslastick.save(patched);
 				return patched;
 			} catch (JsonProcessingException | JsonPatchException e) {
 				log.error("Error updating product {}", productId, e);
@@ -114,7 +112,7 @@ public class ProductsServiceImpl implements ProductsService {
 		Product product = dto.orElse(null);
 		if (product != null) {
 			product.update(updateRequest);
-			repository.save(product);
+			repositoryEslastick.save(product);
 			return product;
 		} else {
 			return null;

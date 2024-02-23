@@ -1,7 +1,5 @@
 package com.unir.products.data;
 
-
-
 import com.unir.products.model.pojo.Product;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 

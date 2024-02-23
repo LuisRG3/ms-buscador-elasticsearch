@@ -2,8 +2,6 @@
 spring:
   application:
     name: ms-buscador-products-elasticsearch
-  datasource:
-    url: jdbc:h2:mem:tiendadb;Mode=MySQL
 
 ## Configuracion de Instancia 
 server:

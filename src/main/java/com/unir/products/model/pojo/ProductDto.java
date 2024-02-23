@@ -16,8 +16,8 @@ public class ProductDto {
 	private String nombre;
 	private String categoria;
 	private String empresaAsociada;
-	private String descripcioncorta;
-	private String descripcionlarga;
+	private String descripcionCorta;
+	private String descripcionLarga;
 	private String Producto;
 	private Long precio;
 	private Long cantidadDisponible;

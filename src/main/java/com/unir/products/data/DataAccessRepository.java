@@ -1,8 +1,6 @@
 package com.unir.products.data;
 
-import java.net.InetAddress;
 import java.util.*;
-
 import com.unir.products.model.pojo.Product;
 import com.unir.products.model.response.AggregationDetails;
 import com.unir.products.model.response.ProductsQueryResponse;
@@ -105,14 +103,14 @@ public class DataAccessRepository {
             ParsedStringTerms countryAgg = (ParsedStringTerms) aggs.get("Agrupacion por Categoria");
 
             //Componemos una URI basada en serverFullAddress y query params para cada argumento, siempre que no viniesen vacios
-            String queryParams = getQueryParams(nombre, categoria, descripcioncorta, descripcionlarga);
+            String queryParams = getQueryParams(nombre, descripcioncorta, descripcionlarga,categoria);
             countryAgg.getBuckets()
                     .forEach(
                             bucket -> responseAggs.add(
                                     new AggregationDetails(
                                             bucket.getKey().toString(),
                                             (int) bucket.getDocCount(),
-                                            serverFullAddress + "/products?country=" + bucket.getKey() + queryParams)));
+                                            serverFullAddress + "/products?categoria=" + bucket.getKey() + queryParams)));
         }
         return new ProductsQueryResponse(result.getSearchHits().stream().map(SearchHit::getContent).toList(), responseAggs);
     }
@@ -126,7 +124,7 @@ public class DataAccessRepository {
      * @param descripcionlarga     - descripcion larga del producto
      * @return
      */
-    private String getQueryParams(String nombre, String categoria, String descripcioncorta, String descripcionlarga) {
+    private String getQueryParams(String nombre, String descripcionlarga, String descripcioncorta, String categoria) {
         String queryParams = (StringUtils.isEmpty(nombre) ? "" : "&nombre=" + nombre)
                 + (StringUtils.isEmpty(categoria) ? "" : "&categoria=" + categoria)
                 + (StringUtils.isEmpty(descripcioncorta) ? "" : "&descripcioncorta=" + descripcioncorta)
