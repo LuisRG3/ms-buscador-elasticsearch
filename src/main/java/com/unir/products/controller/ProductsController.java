@@ -43,10 +43,10 @@ public class ProductsController {
             @RequestParam(required = false) String nombre,
             @Parameter(name = "categoria", description = "País del producto. Debe ser exacto", example = "ES", required = false)
             @RequestParam(required = false) String categoria,
-            @Parameter(name = "descripcioncorta", description = "Descripcion corta del producto. No tiene por que ser exacta", example = "Estupendo", required = false)
-            @RequestParam(required = false) String descripcioncorta,
-            @Parameter(name = "descripcioncorta", description = "Descripcion completa del producto. No tiene por que ser exacta", example = "Estupendo detallado", required = false)
-            @RequestParam(required = false) String descripcionlarga,
+            @Parameter(name = "descripcionCorta", description = "Descripcion corta del producto. No tiene por que ser exacta", example = "Estupendo", required = false)
+            @RequestParam(required = false) String descripcionCorta,
+            @Parameter(name = "descripcionLarga", description = "Descripcion completa del producto. No tiene por que ser exacta", example = "Estupendo detallado", required = false)
+            @RequestParam(required = false) String descripcionLarga,
             @Parameter(name = "valorunitario", description = "Precio de cada producto", example = "20", required = false)
             @RequestParam(required = false) Double valorunitario,
             @Parameter(name = "indValorUnitario", description = "Indicador de busqueda del Precio de producto si es 1 es menor igual al precio indicado si es 2 es mayor igual al precio indicado, si no se especifica lo tomara como igual al precio indicado", example = "1", required = false)
@@ -55,7 +55,7 @@ public class ProductsController {
             @RequestParam(required = false, defaultValue = "false") Boolean aggregate ) {
 
         log.info("headers: {}", headers);
-        ProductsQueryResponse products = service.getProducts(nombre, categoria, descripcioncorta,descripcionlarga,valorunitario,indValorUnitario,aggregate);
+        ProductsQueryResponse products = service.getProducts(nombre, categoria, descripcionCorta,descripcionLarga,valorunitario,indValorUnitario,aggregate);
 
         if (products != null) {
             return ResponseEntity.ok(products);

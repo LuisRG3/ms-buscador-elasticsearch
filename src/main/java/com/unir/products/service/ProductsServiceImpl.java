@@ -32,9 +32,9 @@ public class ProductsServiceImpl implements ProductsService {
 	private ObjectMapper objectMapper;
 
 	@Override
-	public ProductsQueryResponse getProducts(String nombre, String categoria, String descripcioncorta, String descripcionlarga, Double valorunitario, Integer indValorUnitario, Boolean aggregate){
+	public ProductsQueryResponse getProducts(String nombre, String categoria, String descripcionCorta, String descripcionLarga, Double valorunitario, Integer indValorUnitario, Boolean aggregate){
 
-			return repositoryEslastick.findProducts(nombre, categoria, descripcioncorta, descripcionlarga,valorunitario, indValorUnitario,aggregate );
+			return repositoryEslastick.findProducts(nombre, categoria, descripcionCorta, descripcionLarga,valorunitario, indValorUnitario,aggregate );
 	}
 
 	@Override

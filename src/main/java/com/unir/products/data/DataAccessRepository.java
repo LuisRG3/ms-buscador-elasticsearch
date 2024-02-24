@@ -36,8 +36,8 @@ public class DataAccessRepository {
     private final ElasticsearchOperations elasticClient;
 
     private final String[] nombreSearchFields = {"nombre", "nombre._2gram", "nombre._3gram"};
-    private final String[] descripcioncortaSearchFields = {"descripcioncorta", "descripcioncorta._2gram", "descripcioncorta._3gram"};
-    private final String[] descripcionlargaSearchFields = {"descripcionlarga", "descripcionlarga._2gram", "descripcionlarga._3gram"};
+    private final String[] descripcioncortaSearchFields = {"descripcionCorta", "descripcionCorta._2gram", "descripcionCorta._3gram"};
+    private final String[] descripcionlargaSearchFields = {"descripcionLarga", "descripcionLarga._2gram", "descripcionLarga._3gram"};
 
     public Product save(Product product) {
         return productRepository.save(product);
@@ -53,7 +53,7 @@ public class DataAccessRepository {
     }
 
     @SneakyThrows
-    public ProductsQueryResponse findProducts(String nombre, String categoria, String descripcioncorta, String descripcionlarga, Double valorunitario, Integer indValorUnitario, Boolean aggregate) {
+    public ProductsQueryResponse findProducts(String nombre, String categoria, String descripcionCorta, String descripcionLarga, Double valorunitario, Integer indValorUnitario, Boolean aggregate) {
 
         BoolQueryBuilder querySpec = QueryBuilders.boolQuery();
 
@@ -65,12 +65,12 @@ public class DataAccessRepository {
             querySpec.must(QueryBuilders.matchQuery("categoria", categoria));
         }
 
-        if (!StringUtils.isEmpty(descripcioncorta)) {
-            querySpec.must(QueryBuilders.multiMatchQuery(descripcioncorta, descripcioncortaSearchFields).type(Type.BOOL_PREFIX));
+        if (!StringUtils.isEmpty(descripcionCorta)) {
+            querySpec.must(QueryBuilders.multiMatchQuery(descripcionCorta, descripcioncortaSearchFields).type(Type.BOOL_PREFIX));
         }
 
-        if (!StringUtils.isEmpty(descripcionlarga)) {
-            querySpec.must(QueryBuilders.multiMatchQuery(descripcionlarga, descripcionlargaSearchFields).type(Type.BOOL_PREFIX));
+        if (!StringUtils.isEmpty(descripcionLarga)) {
+            querySpec.must(QueryBuilders.multiMatchQuery(descripcionLarga, descripcionlargaSearchFields).type(Type.BOOL_PREFIX));
         }
 
         //Si no he recibido ningun parametro, busco todos los elementos.
@@ -103,7 +103,7 @@ public class DataAccessRepository {
             ParsedStringTerms countryAgg = (ParsedStringTerms) aggs.get("Agrupacion por Categoria");
 
             //Componemos una URI basada en serverFullAddress y query params para cada argumento, siempre que no viniesen vacios
-            String queryParams = getQueryParams(nombre, descripcioncorta, descripcionlarga,categoria);
+            String queryParams = getQueryParams(nombre, descripcionCorta, descripcionLarga,categoria);
             countryAgg.getBuckets()
                     .forEach(
                             bucket -> responseAggs.add(
